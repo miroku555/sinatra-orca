@@ -2,6 +2,7 @@
 #-*-coding: utf-8-*-
 $:.unshift File.dirname(__FILE__)
 require 'pp'
+require 'net/http'
 require 'haml'
 require 'sinatra'
 require 'crack/xml'
@@ -22,7 +23,33 @@ opt = {
 }
 
 get '/' do
-  @patiens = list_patiens(HOST,PORT,USER,PASSWD)
+  @patients = list_patients(opt)
   haml :index
+end
+
+get '/register' do
+  haml :register
+end
+
+post '/register' do
+  @patient = params
+  @id,@error = register_patient(opt,@patient)
+  if @error
+      haml :register_result
+  else
+    haml :register
+  end
+end
+
+get '/delete' do
+  pp params
+  @patient = params
+  haml :delete
+end
+
+post '/delete' do
+  @patient = params
+  @id,@error = delete_patient(opt,@patient)
+  redirect to '/'
 end
 

@@ -1,0 +1,38 @@
+%html
+  %head
+  %body
+    %h2 日レセ患者
+    %div
+      - if @error
+        %p= @error
+    %div
+      %a{:href => "/register"} 新規登録
+    %div
+      %table
+        %tr 
+          %th 患者番号
+          %th 患者氏名
+          %th カナ氏名
+          %th 生年月日
+          %th 性別
+          %th 
+          %th 
+        - @patients.each do |patient|
+          %tr
+            - param = "id=#{patient['Patient_ID']}"
+            - param << "&whole_name=#{patient['WholeName']}"
+            - param << "&whole_name_kana=#{patient['WholeName_inKana']}"
+            - param << "&birth_date=#{patient['BirthDate']}"
+            - param << "&sex=#{patient['Sex']}"
+          
+            %td= patient['Patient_ID']
+            %td= patient['WholeName']
+            %td= patient['WholeName_inKana']
+            %td= patient['BirthDate']
+            %td= patient['Sex']  == "1" ? "男":"女"
+            %td= patient['CreateDate']
+            %td= patient['UpdateDate']
+            %td
+              %a{:href => "/modefy?#{param}"}更新
+            %td
+              %a{:href => "/delete?#{param}"}削除
