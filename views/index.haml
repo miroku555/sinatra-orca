@@ -3,10 +3,14 @@
   %body
     %h2 日レセ患者
     %div
-      - if @error
-        %p= @error
+      - if session['message']
+        %p= session['message']
+        - session['message'] = nil
     %div
       %a{:href => "/register"} 新規登録
+
+    %div
+      %a{:href => "/logout"} ログアウト
     %div
       %table
         %tr 
