@@ -55,6 +55,54 @@ def list_patients(opt)
   root["xmlio2"]["patientlst1res"]["Patient_Information"]
 end
 
+def register_patient(opt,params)
+url = "/orca12/patientmodv2?class=01"
+body = <<-EOF
+<data>
+<patientmodreq type="record">
+<Patient_ID type="string">*</Patient_ID>
+<WholeName type="string">#{params['whole_name']}</WholeName>
+<WholeName_inKana type="string">#{params['whole_name_kana']}</WholeName_inKana>
+<BirthDate type="string">#{params['birth_date']}</BirthDate>
+<Sex type="string">#{params['sex']}</Sex>
+<HouseHolder_WholeName type="string">#{params['whole_name']}</HouseHolder_WholeName>
+<Relationship type="string">本人</Relationship>
+<Occupation type="string">会社員</Occupation>
+<CellularNumber type="string">09011112222</CellularNumber>
+<FaxNumber type="string">03-0011-2233</FaxNumber>
+<EmailAddress type="string">test@tt.dot.jp</EmailAddress>
+<Home_Address_Information type="record">
+<Address_ZipCode type="string">1130021</Address_ZipCode>
+<WholeAddress1 type="string">東京都文京区本駒込</WholeAddress1>
+<WholeAddress2 type="string">６−１６−３</WholeAddress2>
+<PhoneNumber1 type="string">03-3333-2222</PhoneNumber1>
+<PhoneNumber2 type="string">03-3333-1133</PhoneNumber2>
+</Home_Address_Information>
+</patientmodreq>
+</data>
+EOF
+ret = post(url,opt,body)
+if ret.empty?
+puts "ret empty"
+return [nil,"http post error"]
+end
+unless ret[0] == "200"
+puts "state code:#{ret[0]}"
+return [nil,"state code:#{ret[0]}"]
+end
+root = Crack::XML.parse(ret[1])
+result = root["xmlio2"]["patientmodres"]["Api_Result"]
+message = root["xmlio2"]["patientmodres"]["Api_Result_Message"]
+unless result == "00"
+puts "eroor"
+return [nil,"result:#{result} message:#{message}"]
+end
+pinfo = root["xmlio2"]["patientmodres"]["Patient_Information"]
+id = pinfo["Patient_ID"]
+[id,nil]
+end
+
+
 def delete_patient(opt,params)
   url = "/orca12/patientmodv2?class=03"
 pp params
