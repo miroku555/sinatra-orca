@@ -3,7 +3,7 @@
     %meta{:charset => "UTF-8"}
     %link{:rel => "stylesheet", :type => "text/css", :href =>"style.css"}
   %body
-    %h2 日レセ患者API
+    %h2{:class => "title"} 日レセ患者API
     %div{:class => "message"}
       - if session['message']
         %p= session['message']

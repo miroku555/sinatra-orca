@@ -2,6 +2,24 @@ div.message{
   background-color: #fdd;
 }
 
+h2.title{
+  text-align:center;
+}
+
+body.center{
+  text-align:center;
+}
+
+p.c_red{
+  color: #f33
+}
+p.c_blue{
+  color: #33f
+}
+div.center{
+  text-align:center;
+}
+
 div.message p {
   color: #f33;
 }

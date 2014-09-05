@@ -2,15 +2,15 @@
   %head
     %meta{:charset => "UTF-8"}
     %link{:rel => "stylesheet", :type => "text/css", :href =>"style.css"}
-  %body
+  %body{:class => "center"}
     %h2 患者更新確認
     %div{:class => "top_menu"}
       %a{:href => "/"}戻る
       %a{:href => "/logout"}ログアウト
     %div
       %p= "患者ID:#{@patient['id']}"
-      %p= "更新前 氏名:#{@patient['whole_name']}"
-      %p= "更新前 カナ氏名:#{@patient['whole_name_kana']}"
+      %p{:class => "c_red"}= "更新前 氏名:#{@patient['whole_name']}"
+      %p{:class => "c_red"}= "更新前 カナ氏名:#{@patient['whole_name_kana']}"
       %p= "生年月日:#{@patient['birth_date']}"
       %p= "性別:#{@patient['sex'] == "1" ? "男":"女"}"
     %div
@@ -31,10 +31,10 @@
     %div
       %form{:action => "/modify", :method => "post"}
         %div
-          %p 更新後 氏名
+          %p{:class => "c_blue"} 更新後 氏名
           %input{:type => "text",:name =>"whole_name", :value => "#{@patient['whole_name']}"}
         %div
-          %p 更新後 カナ氏名
+          %p{:class => "c_blue"} 更新後 カナ氏名
           %input{:type => "text",:name =>"whole_name_kana", :value => "#{@patient['whole_name_kana']}"}
           %input{:type => "text", |
                  :name => 'id', |
