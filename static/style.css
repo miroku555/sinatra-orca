@@ -1,0 +1,33 @@
+div.message{
+  background-color: #fdd;
+}
+
+div.message p {
+  color: #f33;
+}
+
+div.top_menu{
+  text-align:right; 
+}
+
+table.table1 {
+  border-collapse: collapse;
+}
+
+th.th1 {
+  color: #333;
+  background-color: #eee;
+  border:1px solid #b9b9b9;
+}
+
+td.td0 {
+  color: #333;
+  background-color: #ff0;
+  border:1px solid #b9b9b9;
+}
+
+td.td1 {
+  color: #000;
+  background-color: #fff;
+  border:1px solid #b9b9b9;
+}

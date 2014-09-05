@@ -91,3 +91,19 @@ post '/delete' do
   redirect to '/'
 end
 
+get '/modify' do
+  check_login
+  pp params
+  @patient = params
+  haml :modify
+end
+
+post '/modify' do
+  check_login
+  @patient = params
+  @id,@error = modify_patient(opt,@patient)
+  session['message'] = @error
+  redirect to '/'
+end
+
+
